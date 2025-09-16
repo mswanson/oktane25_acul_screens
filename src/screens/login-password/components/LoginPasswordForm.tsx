@@ -1,23 +1,22 @@
 import { useState } from "react";
 
-// import type { Error } from "@auth0/auth0-acul-js";
-// import { getFieldError } from "@/utils/helpers/errorUtils";
-import { ArrowLeft, ArrowRight, Eye, EyeOff, Mail, Shield } from "lucide-react";
+import type { Error } from "@auth0/auth0-acul-js";
+import { ArrowLeft, ArrowRight, Mail, Shield } from "lucide-react";
 
+import { FormErrors } from "@/components/common/FormErrors";
+import { PasswordInput } from "@/components/common/PasswordInput";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getFieldError } from "@/utils/helpers/errorUtils";
 import submitForm from "@/utils/helpers/submit-form";
 
 import { useLoginPasswordManager } from "../hooks/useLoginPasswordManager";
 
 export type AuthMethod = "password" | "otp";
 
-function PasswordForm() {
+function LoginPasswordForm() {
   const [authMethod, setAuthMethod] = useState<AuthMethod>("password");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -25,35 +24,31 @@ function PasswordForm() {
     data,
     handleLoginPassword,
     loginPasswordInstance,
-    // errors,
+    errors,
     resetPasswordLink,
   } = useLoginPasswordManager();
 
-  // Extract general errors (not field-specific) from the SDK
-  // const generalErrors =
-  //   errors?.filter((error: Error) => !error.field || error.field === null) ||
-  //   [];
-
-  // Extract field-specific errors for username, password, and CAPTCHA
-  // const usernameSDKError =
-  //   getFieldError("username", errors) || getFieldError("email", errors);
-  // const passwordSDKError = getFieldError("password", errors);
-  // const captchaSDKError = getFieldError("captcha", errors);
-
-  // Get password policy (e.g., minimum length) from the SDK
-  // const passwordPolicy =
-  //   loginPasswordInstance?.transaction?.getPasswordPolicy();
+  // Client-side validation
   const isPasswordValid = password.length >= 8;
 
+  const getPasswordValidationMessage = () => {
+    if (!password.trim()) return "";
+    if (!isPasswordValid) {
+      return "Your password must be at least 8 characters";
+    }
+    return "";
+  };
+
+  // Password submit handler
   const handlePasswordSubmit = async () => {
     if (!password.trim()) return;
-
     setIsSubmitting(true);
     const identifier = data?.username ?? "";
     await handleLoginPassword(identifier, password);
     setIsSubmitting(false);
   };
 
+  // OTP submit handler
   const handleSendOtp = () => {
     setIsSubmitting(true);
     submitForm({
@@ -63,20 +58,11 @@ function PasswordForm() {
     setIsSubmitting(false);
   };
 
+  // Edit identifier handler
   const handleEditIdentifier = () => {
     window.location.href = links?.edit_identifier || "#";
   };
 
-  // {/* General alerts at the top */ }
-  // {generalErrors.length > 0 && (
-  // <div className="space-y-3 mb-4">
-  // {generalErrors.map((error: Error, index: number) => (
-  // <p key={index} className="text-sm text-destructive text-center">
-  // {error.message}
-  // </p>
-  // ))}
-  // </div>
-  // )}
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
@@ -96,6 +82,12 @@ function PasswordForm() {
         </div>
       </div>
 
+      <FormErrors
+        formErrors={errors?.filter(
+          (error: Error) => !error.field || error.field === null
+        )}
+      />
+
       <Tabs
         value={authMethod}
         onValueChange={(value: string) => setAuthMethod(value as AuthMethod)}
@@ -113,42 +105,16 @@ function PasswordForm() {
         </TabsList>
 
         <TabsContent value="password" className="space-y-4 mt-0">
-          <form onSubmit={handlePasswordSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="h-12 pr-10"
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-0 top-0 h-12 px-3 hover:bg-transparent"
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4 text-muted-foreground" />
-                  ) : (
-                    <Eye className="h-4 w-4 text-muted-foreground" />
-                  )}
-                </Button>
-              </div>
-              <div className="text-right -mt-1">
-                <a
-                  href={resetPasswordLink ?? "#"}
-                  className="text-sm text-primary hover:text-primary-dark font-medium"
-                >
-                  Forgot your password?
-                </a>
-              </div>
-            </div>
-
+          <form onSubmit={handlePasswordSubmit} className="space-y-6">
+            <PasswordInput
+              id="password"
+              value={password}
+              label="Password"
+              placeholder="Enter your password"
+              serverError={getFieldError("password", errors)}
+              validationError={getPasswordValidationMessage()}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <Button
               type="submit"
               disabled={!isPasswordValid || isSubmitting}
@@ -164,6 +130,14 @@ function PasswordForm() {
               )}
             </Button>
           </form>
+          <div className="text-center">
+            <a
+              href={resetPasswordLink ?? "#"}
+              className="text-sm text-primary hover:text-primary-dark font-medium"
+            >
+              Forgot your password?
+            </a>
+          </div>
         </TabsContent>
 
         <TabsContent value="otp" className="space-y-4 mt-0">
@@ -195,4 +169,4 @@ function PasswordForm() {
   );
 }
 
-export default PasswordForm;
+export default LoginPasswordForm;

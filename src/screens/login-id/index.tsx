@@ -1,6 +1,6 @@
 import Container from "@/components/common/Container";
 
-import IdentifierForm from "./components/IdentifierForm";
+import LoginIdForm from "./components/LoginIdForm";
 import { useLoginIdManager } from "./hooks/useLoginIdManager";
 
 function LoginIdScreen() {
@@ -12,7 +12,7 @@ function LoginIdScreen() {
       clientId={loginIdInstance.client.id}
       flowLink={loginIdInstance?.screen?.signupLink ?? "#"}
     >
-      <IdentifierForm />
+      <LoginIdForm />
     </Container>
   );
 }

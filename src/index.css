@@ -69,7 +69,7 @@
     --color-accent-foreground: var(--color-rose-800);
     --color-border: var(--color-slate-200);
     --color-input: var(--color-slate-200);
-    --color-ring: var(--color-rose-400);
+    --color-ring: var(--color-rose-200);
     --color-auth-bg: var(--color-rose-50);
   }
   #root.dark[data-brand="my-learning"] {
@@ -136,7 +136,7 @@
       var(--color-muted) 0%,
       var(--color-white) 100%
     );
-    --radius: 0.5rem;
+    --radius: 0.25rem;
   }
 }
 

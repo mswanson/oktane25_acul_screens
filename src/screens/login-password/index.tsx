@@ -1,6 +1,6 @@
 import Container from "@/components/common/Container";
 
-import PasswordForm from "./components/PasswordForm";
+import LoginPasswordForm from "./components/LoginPasswordForm";
 import { useLoginPasswordManager } from "./hooks/useLoginPasswordManager";
 
 function LoginPasswordScreen() {
@@ -12,7 +12,7 @@ function LoginPasswordScreen() {
       clientId={loginPasswordInstance.client.id}
       flowLink={loginPasswordInstance?.screen?.signupLink ?? "#"}
     >
-      <PasswordForm />
+      <LoginPasswordForm />
     </Container>
   );
 }
