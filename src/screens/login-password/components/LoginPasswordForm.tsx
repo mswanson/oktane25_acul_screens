@@ -40,7 +40,10 @@ function LoginPasswordForm() {
   };
 
   // Password submit handler
-  const handlePasswordSubmit = async () => {
+  const handlePasswordSubmit: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
+    e.preventDefault();
     if (!password.trim()) return;
     setIsSubmitting(true);
     const identifier = data?.username ?? "";

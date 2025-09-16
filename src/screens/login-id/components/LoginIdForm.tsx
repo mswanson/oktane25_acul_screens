@@ -33,7 +33,8 @@ function LoginIdForm() {
   };
 
   // Submit handler
-  const handleSubmit = async () => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
     if (!isValid) return;
     setIsSubmitting(true);
     await handleSubmitIdentifier(identifier);

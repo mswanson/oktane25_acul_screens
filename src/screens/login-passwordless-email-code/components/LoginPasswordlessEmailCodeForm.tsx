@@ -45,7 +45,10 @@ function LoginPasswordlessEmailOtpForm() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSubmitCode = async () => {
+  const handleSubmitCode: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
+    e.preventDefault();
     if (isValidCode) return;
     setIsSubmitting(true);
     await handleSubmitOtp(code, email);
