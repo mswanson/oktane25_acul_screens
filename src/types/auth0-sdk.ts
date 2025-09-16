@@ -1,5 +1,6 @@
 import type {
   BrandingMembers,
+  ClientMembers,
   OrganizationMembers,
   ScreenMembers,
   TransactionMembers,
@@ -15,6 +16,7 @@ import type {
  */
 export interface UniversalLoginContext {
   branding: BrandingMembers;
+  client: ClientMembers;
   organization?: OrganizationMembers;
   screen: ScreenMembers;
   transaction: TransactionMembers;

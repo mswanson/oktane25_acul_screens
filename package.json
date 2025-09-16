@@ -17,13 +17,17 @@
   "dependencies": {
     "@auth0/auth0-acul-js": "0.1.0-beta.7",
     "@base-ui-components/react": "^1.0.0-beta.1",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-tabs": "^1.1.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "input-otp": "^1.4.2",
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.60.0",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.0",
