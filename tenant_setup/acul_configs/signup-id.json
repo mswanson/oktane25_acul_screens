@@ -1,0 +1,59 @@
+{
+  "rendering_mode": "advanced",
+  "context_configuration": [],
+  "default_head_tags_disabled": false,
+  "head_tags": [
+    {
+      "tag": "script",
+      "attributes": {
+        "src": "http://localhost:3000/assets/main.DIHyLzio.js",
+        "type": "module",
+        "crossorigin": ""
+      }
+    },
+    {
+      "tag": "link",
+      "attributes": {
+        "rel": "modulepreload",
+        "href": "http://localhost:3000/assets/shared/vendor.Cl7dWoFQ.js",
+        "crossorigin": ""
+      }
+    },
+    {
+      "tag": "link",
+      "attributes": {
+        "rel": "modulepreload",
+        "href": "http://localhost:3000/assets/shared/common.DqMVBrnb.js",
+        "crossorigin": ""
+      }
+    },
+    {
+      "tag": "link",
+      "attributes": {
+        "rel": "modulepreload",
+        "href": "http://localhost:3000/assets/signup-id/index.VSlCJsdc.js",
+        "crossorigin": ""
+      }
+    },
+    {
+      "tag": "link",
+      "attributes": {
+        "rel": "stylesheet",
+        "href": "http://localhost:3000/assets/shared/style.PBqFrDiZ.css",
+        "crossorigin": ""
+      }
+    },
+    {
+      "tag": "script",
+      "content": "console.log(window.universal_login_context);"
+    }
+  ],
+  "filters": {
+    "match_type": "includes_any",
+    "clients": [
+      { "id": "8zPb30K9yv0BZjjSBZI3OHcOF0F0GTmk" },
+      { "id": "lAAXj8NNbOx9yV8cwjGZv4QT5vCP7NOp" }
+    ]
+  },
+  "use_page_template": false
+}
