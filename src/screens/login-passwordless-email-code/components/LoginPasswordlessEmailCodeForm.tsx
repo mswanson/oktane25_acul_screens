@@ -49,9 +49,9 @@ function LoginPasswordlessEmailOtpForm() {
     e
   ) => {
     e.preventDefault();
-    if (isValidCode) return;
+    if (!isValidCode) return;
     setIsSubmitting(true);
-    await handleSubmitOtp(code, email);
+    await handleSubmitOtp(email, code);
     setIsSubmitting(false);
   };
 
